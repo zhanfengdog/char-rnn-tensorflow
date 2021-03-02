@@ -61,9 +61,9 @@ class Model():
         inputs = [tf.squeeze(input_, [1]) for input_ in inputs]
 
         # loop function for rnn_decoder, which take the previous i-th cell's output and generate the (i+1)-th cell's input
-        def loop(prev, _):
-            prev = tf.matmul(prev, softmax_w) + softmax_b
-            prev_symbol = tf.stop_gradient(tf.argmax(prev, 1))
+        def loop(prev, _):#循环，prev上一个
+            prev = tf.matmul(prev, softmax_w) + softmax_b#矩阵相乘
+            prev_symbol = tf.stop_gradient(tf.argmax(prev, 1))#
             return tf.nn.embedding_lookup(embedding, prev_symbol)
 
         # rnn_decoder to generate the ouputs and final state. When we are not training the model, we use the loop function.
